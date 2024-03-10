@@ -9,10 +9,13 @@ void setup()
   servo.attach(SERVO_PIN);
   servo.write(0); // O servo começa com ângulo 0. Ou seja, chave fechada.
 
+  pinMode(SERVO_LED_PIN, OUTPUT);
+  digitalWrite(SERVO_LED_PIN, LOW); // LED começa desligado.
+
   pinMode(BUTTON_PIN, INPUT);
   attachInterrupt(
       digitalPinToInterrupt(BUTTON_PIN),
-      swapState,
+      swapState, // Inverte o estado do servo.
       CHANGE);
 }
 
@@ -23,7 +26,7 @@ void loop()
   if (abs(current) > currentLimit)
   {
     state = HIGH;
-    servo.toAngle(90); // Abre a chave.
+    openCircuit();
 
     Serial.print("Sobrecorrente: ");
     Serial.print(abs(current));
