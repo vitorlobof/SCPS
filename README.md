@@ -7,20 +7,19 @@ O Projeto SCPS é um sistema de proteção de rede elétrica desenvolvido com o 
 O sistema funciona da seguinte maneira:
 
 1. **Leitura de Corrente:**
-   O sensor de corrente ACS712 é utilizado para medir a corrente elétrica que passa pela carga. Ele é não invasivo, o que significa que não é necessário interromper o circuito para realizar a medição.
+   O sensor de corrente ACS712 é utilizado para medir a corrente elétrica que passa pela carga. Ele é não invasivo, o que significa que não é necessário interromper o circuito para realizar a medição. Isso permite que os valores sejam lidos contínuamente.
 
-2. **Monitoramento da Corrente:**
-   O Arduino lê continuamente os valores de corrente fornecidos pelo sensor ACS712.
-
-3. **Detecção de Sobrecorrente:**
-   O sistema monitora os valores de corrente e ativa um mecanismo de proteção caso a corrente medida ultrapasse um determinado limite pré-definido.
-
-4. **Atuação do Servo Motor:**
+2. **Atuação do Servo Motor:**
    Quando a sobrecorrente é detectada, o Arduino aciona um servo motor para desligamento da carga elétrica.
+
+3. **Proteção contra sobrecorrente:**
+   A leitura dos valores de corrente detecta uma sobrecorrente e ativa o servo motor para abrir o circuito.
 
 ## Componentes Utilizados
 
-- Arduino Mega 2560.
-- Sensor de Corrente Não Invasivo ACS712.
-- Servo Motor: Utilizado para abrir e fechar o circuito, atuando como a proteção.
-- Resistores e Componentes Eletrônicos Diversos.
+- 1 Arduino Mega 2560.
+- 1 Sensor de Corrente Não Invasivo ACS712.
+- 1 Micro Servo MG90S.
+- Vários resistores.
+- 2 botões.
+- 1 LED.
