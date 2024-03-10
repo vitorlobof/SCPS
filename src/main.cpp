@@ -16,14 +16,14 @@ void loop()
 {
   current = sensor.readCurrent(10);
 
-  Serial.print("Valor de corrente:");
-  Serial.print(current);
-  Serial.println(" A\n");
-
   if (abs(current) > currentLimit)
   {
     state = HIGH;
     servo.toAngle(90);
+
+    Serial.print("Sobrecorrente: ");
+    Serial.print(abs(current));
+    Serial.println(" A\n");
   }
 
   if (digitalRead(BUTTON_PIN) == HIGH)
