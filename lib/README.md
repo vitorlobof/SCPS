@@ -1,8 +1,6 @@
-Esta pasta destina-se a bibliotecas específicas do projeto (privadas).
-O PlatformIO irá compilá-las para bibliotecas estáticas e vinculá-las ao arquivo executável.
+Esta pasta destina-se a bibliotecas específicas do projeto (privadas). O PlatformIO irá compilá-las para bibliotecas estáticas e vinculá-las ao arquivo executável.
 
-O código-fonte de cada biblioteca deve ser colocado em um diretório separado próprio
-("lib/nome_da_sua_biblioteca/[aqui estão os arquivos fonte]").
+O código-fonte de cada biblioteca deve ser colocado em um diretório separado próprio ("lib/nome_da_sua_biblioteca/[aqui estão os arquivos fonte]").
 
 Por exemplo, veja a estrutura das seguintes duas bibliotecas `Foo` e `Bar`:
 
