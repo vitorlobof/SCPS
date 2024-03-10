@@ -23,3 +23,9 @@ O sistema funciona da seguinte maneira:
 - Vários resistores.
 - 2 botões.
 - 1 LED.
+
+## Simulação
+
+A simulação foi feita através do Proteus, como mostrado na simulação a seguir.
+
+![Simulação](images/proteus_simulation.png)
