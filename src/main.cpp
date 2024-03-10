@@ -1,28 +1,20 @@
-#include <Arduino.h>
-#include "../lib/servo/servo.hpp"
-#include "../lib/sensor/sensor.hpp"
-
-#define SERVO_PIN 4
-#define BUTTON_PIN 5
-#define SENSOR_PIN A0
-
-int state = LOW; // A chave começa fechada.
-
-float current;            // Vai guardar as leituras de tensão.
-float currentLimit = 10.0; // Limite de tensão aceito. Ao ser superado, a chave será aberta.
+#include "main.h"
 
 void setup()
 {
   Serial.begin(9600); // Comunicação serial.
 
-  srv::initServo(SERVO_PIN);
-  sensor::initSensor(SENSOR_PIN);
+  sensor.attach(SENSOR_PIN);
+
+  servo.attach(SERVO_PIN);
+  servo.write(0); // O servo começa com ângulo 0.
+
   pinMode(BUTTON_PIN, INPUT);
 }
 
 void loop()
 {
-  current = sensor::readCurrent(10);
+  current = sensor.readCurrent(10);
 
   Serial.print("Valor de corrente:");
   Serial.print(current);
@@ -31,13 +23,22 @@ void loop()
   if (abs(current) > currentLimit)
   {
     state = HIGH;
-    srv::keyToState(state);
+    servo.toAngle(90);
   }
 
   if (digitalRead(BUTTON_PIN) == HIGH)
   {
     state = !state;
-    srv::keyToState(state);
+
+    if (state == HIGH)
+    {
+      servo.toAngle(90);
+    }
+    else
+    {
+      servo.toAngle(0);
+    }
+
     Serial.println("O botão foi precionado\n");
   }
 }

@@ -1,9 +1,17 @@
 #pragma once
 
-namespace srv
+#include <Servo.h>
+
+class CServo : public Servo
 {
-    void initServo(int);
-    int getAngle();
-    void servoToAngle(int *, int);
-    void keyToState(int);
-}
+public:
+    void toAngle(int angle);
+};
+
+// namespace srv
+// {
+//     void initServo(int);
+//     int getAngle();
+//     void servoToAngle(int *, int);
+//     void keyToState(int);
+// }

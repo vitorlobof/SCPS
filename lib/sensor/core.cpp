@@ -1,38 +1,56 @@
 #include <Arduino.h>
+#include "core.hpp"
 
-namespace sensor
+Sensor::Sensor() : pin(-1), sensitivity(185.0f), offsetVoltage(4000.0f) {}
+
+void Sensor::attach(int pin)
 {
-    int sensorPin;
-    int sensitivity = 185.0f;   // Sensitividade do sensor utilizado em mV/A.
-    int offsetVoltage = 4000.0f; // A tensão de offset do ACS712 em mV.
+    this->pin = pin;
+}
 
-    void initSensor(int pin)
+void Sensor::detach()
+{
+    this->pin = -1;
+}
+
+bool Sensor::attached()
+{
+    return !(this->pin == -1);
+}
+
+float Sensor::readVoltage(int numberOfSamples)
+{
+    /*
+    Recebe o número de amostras que devem ser coletadas e
+    retorna a tensão lida em mV.
+    */
+
+    float samplesSum = 0.0;
+    float samplesAverage, voltage;
+
+    for (int i = 0; i < numberOfSamples; i++)
     {
-        sensorPin = pin;
+        samplesSum += analogRead(this->pin);
+        delay(5);
     }
 
-    float readCurrent(int numberOfSamples)
-    {
-        /*
-        Determina a corrente em A.
-        */
+    samplesAverage = samplesSum / numberOfSamples;
+    voltage = samplesAverage * (5000.0f / 1024.0f);
 
-        float currentValue = 0.0, samplesSum = 0.0;
-        float samplesAverage;
-        float voltage;
-        float current;
+    return voltage;
+}
 
-        for (int i = 0; i < numberOfSamples; i++)
-        {
-            currentValue = analogRead(sensorPin); // Lê o valor atual coletado pelo sensor.
-            samplesSum += currentValue;           // Adiciona o valor lido a soma das amostras.
-            delay(10);                            // Deixa o ADC termine suas operações antes de coletar a próxima amostra.
-        }
+float Sensor::readCurrent(int numberOfSamples)
+{
+    /*
+    Recebe o número de amostras que devem ser coletadas e
+    retorna a corrente elétrica lida em A.
+    */
 
-        samplesAverage = samplesSum / numberOfSamples;     // Determina a média das amostras.
-        voltage = samplesAverage * (5000.0f / 1024.0f);    // Converte a tensão lida para mV.
-        current = (voltage - offsetVoltage) / sensitivity; // Determina a corrente que passa pelo circuito em A.
+    float current, voltage;
 
-        return current;
-    }
+    voltage = readVoltage(numberOfSamples);
+    current = (voltage - this->offsetVoltage) / this->sensitivity;
+
+    return current;
 }
