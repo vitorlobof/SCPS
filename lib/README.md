@@ -6,6 +6,7 @@ O código-fonte de cada biblioteca deve ser colocado em um diretório separado p
 
 Por exemplo, veja a estrutura das seguintes duas bibliotecas `Foo` e `Bar`:
 
+```
 |--lib
 |  |
 |  |--Bar
@@ -25,5 +26,6 @@ Por exemplo, veja a estrutura das seguintes duas bibliotecas `Foo` e `Bar`:
 |- platformio.ini
 |--src
    |- main.c
+```
 
 e o conteúdo de `src/main.c`:
