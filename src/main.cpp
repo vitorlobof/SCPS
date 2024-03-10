@@ -23,13 +23,16 @@ void loop()
 {
   current = sensor.readCurrent(10);
 
+  Serial.print(abs(current));
+  Serial.println(" mA");
+
   if (abs(current) > currentLimit)
   {
     state = HIGH;
     openCircuit();
 
-    Serial.print("Sobrecorrente: ");
-    Serial.print(abs(current));
-    Serial.println(" A");
+    Serial.println("(Sobrecorrente)");
+  } else {
+    Serial.println("");
   }
 }

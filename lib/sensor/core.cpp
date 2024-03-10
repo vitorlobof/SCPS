@@ -44,13 +44,13 @@ float Sensor::readCurrent(int numberOfSamples)
 {
     /*
     Recebe o número de amostras que devem ser coletadas e
-    retorna a corrente elétrica lida em A.
+    retorna a corrente elétrica lida em mA.
     */
 
     float current, voltage;
 
     voltage = readVoltage(numberOfSamples);
-    current = (voltage - this->offsetVoltage) / this->sensitivity;
+    current = 1000.0 * (voltage - this->offsetVoltage) / this->sensitivity;
 
     return current;
 }
