@@ -16,7 +16,7 @@ void setup()
   attachInterrupt(
       digitalPinToInterrupt(BUTTON_PIN),
       swapState, // Inverte o estado do servo.
-      CHANGE);
+      RISING);
 }
 
 void loop()
