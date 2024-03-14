@@ -1,4 +1,10 @@
 #include "servo.hpp"
 #include "sensor.hpp"
+#include "intervention.hpp"
 
-#define BUTTON_PIN 18
+Sensor sensor;
+float current;
+
+CServo servo;
+bool state = LOW; // HIGH para chave aberta e LOW para fechada.
+                  // Inicialmente a chave se encontra fechada.

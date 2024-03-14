@@ -4,19 +4,14 @@ void setup()
 {
   Serial.begin(9600); // Comunicação serial.
 
-  sensor.attach(SENSOR_PIN);
+  setupSensor(sensor);
+  setupServo(servo);
+  setupIntervention();
 
-  servo.attach(SERVO_PIN);
-  servo.write(0); // O servo começa com ângulo 0. Ou seja, chave fechada.
-
-  pinMode(SERVO_LED_PIN, OUTPUT);
-  digitalWrite(SERVO_LED_PIN, LOW); // LED começa desligado.
-
-  pinMode(BUTTON_PIN, INPUT);
   attachInterrupt(
-      digitalPinToInterrupt(BUTTON_PIN),
-      swapState, // Inverte o estado do servo.
-      RISING);
+      digitalPinToInterrupt(INTERVENTION_PIN),
+      interruptFunction,
+      INTERVENTION_MODE);
 }
 
 void loop()
@@ -24,15 +19,28 @@ void loop()
   current = sensor.readCurrent(10);
 
   Serial.print(abs(current));
-  Serial.println(" mA");
+  Serial.print(" mA");
 
-  if (abs(current) > currentLimit)
+  if (!state && abs(current) > CURRENT_LIMIT)
   {
     state = HIGH;
-    openCircuit();
+    openCircuit(servo);
 
-    Serial.println("(Sobrecorrente)");
-  } else {
+    Serial.println(" (Sobrecorrente)");
+  }
+  else
+  {
     Serial.println("");
   }
+}
+
+void interruptFunction()
+{
+  /*
+  Inverte o estado do servo.
+  */
+
+  swapState(servo, state);
+
+  Serial.println("O botao foi pressionado");
 }

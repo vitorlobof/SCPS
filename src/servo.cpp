@@ -1,0 +1,50 @@
+#include "servo.hpp"
+
+void setupServo(CServo &servo)
+{
+    servo.attach(SERVO_PIN);
+    servo.write(0); // O servo começa com ângulo 0. Ou seja, chave fechada.
+
+    pinMode(SERVO_LED_PIN, OUTPUT);
+    digitalWrite(SERVO_LED_PIN, LOW); // LED começa desligado.
+}
+
+void openCircuit(CServo &servo)
+{
+    /*
+    Aciona o servo motor para abrir o circuito e acende o LED
+    associado a ele.
+    */
+
+    servo.toAngle(90);
+    digitalWrite(SERVO_LED_PIN, HIGH);
+}
+
+void closeCircuit(CServo &servo)
+{
+    /*
+    Aciona o servo motor para fechar o circuito e apaga o LED a
+    associado a ele.
+    */
+
+    servo.toAngle(0);
+    digitalWrite(SERVO_LED_PIN, LOW);
+}
+
+void swapState(CServo &servo, bool &state)
+{
+    /*
+    Inverte o estado do servo.
+    */
+
+    state = !state;
+
+    if (state == HIGH)
+    {
+        openCircuit(servo);
+    }
+    else
+    {
+        closeCircuit(servo);
+    }
+}
