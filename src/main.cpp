@@ -18,19 +18,14 @@ void loop()
 {
   current = sensor.readCurrent(10);
 
-  Serial.print(abs(current));
-  Serial.print(" mA");
-
   if (!state && abs(current) > CURRENT_LIMIT)
   {
     state = HIGH;
     openCircuit(servo);
 
-    Serial.println(" (Sobrecorrente)");
-  }
-  else
-  {
-    Serial.println("");
+    Serial.print("Sobrecorrente detectada: ");
+    Serial.print(abs(current));
+    Serial.println(" mA");
   }
 }
 
@@ -42,5 +37,5 @@ void interruptFunction()
 
   swapState(servo, state);
 
-  Serial.println("O botao foi pressionado");
+  Serial.println("Intervencao realizada.");
 }

@@ -3,7 +3,7 @@
 void setupServo(CServo &servo)
 {
     servo.attach(SERVO_PIN);
-    servo.write(0); // O servo começa com ângulo 0. Ou seja, chave fechada.
+    closeCircuit(servo); // A chave começa fechada.
 
     pinMode(SERVO_LED_PIN, OUTPUT);
     digitalWrite(SERVO_LED_PIN, LOW); // LED começa desligado.
