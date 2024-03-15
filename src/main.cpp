@@ -1,4 +1,4 @@
-#include "main.h"
+#include "main.hpp"
 
 void setup()
 {
@@ -36,6 +36,7 @@ void interruptFunction()
   */
 
   swapState(servo, state);
+  delay(10);
 
   Serial.println("Intervencao realizada.");
 }

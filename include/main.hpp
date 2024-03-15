@@ -1,3 +1,5 @@
+#pragma once
+
 #include "servo.hpp"
 #include "sensor.hpp"
 #include "intervention.hpp"

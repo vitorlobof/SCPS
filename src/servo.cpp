@@ -16,7 +16,7 @@ void openCircuit(CServo &servo)
     associado a ele.
     */
 
-    servo.toAngle(90);
+    servo.toAngle(OPEN_CIRCUIT_ANGLE);
     digitalWrite(SERVO_LED_PIN, HIGH);
 }
 
@@ -27,7 +27,7 @@ void closeCircuit(CServo &servo)
     associado a ele.
     */
 
-    servo.toAngle(0);
+    servo.toAngle(CLOSE_CIRCUIT_ANGLE);
     digitalWrite(SERVO_LED_PIN, LOW);
 }
 
