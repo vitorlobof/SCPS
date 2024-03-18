@@ -1,12 +1,24 @@
 #include "main.hpp"
 
+void interruptFunction()
+{
+  /*
+  Inverte o estado do servo.
+  */
+
+  swapState(servo, state);
+  delay(10);
+
+  Serial.println("Intervencao realizada.");
+}
+
 void setup()
 {
   Serial.begin(9600); // Comunicação serial.
 
   setupSensor(sensor);
   setupServo(servo);
-  setupIntervention();
+  setupIntervention(interruptFunction);
 
   attachInterrupt(
       digitalPinToInterrupt(INTERVENTION_PIN),
@@ -27,16 +39,4 @@ void loop()
     Serial.print(abs(current));
     Serial.println(" mA");
   }
-}
-
-void interruptFunction()
-{
-  /*
-  Inverte o estado do servo.
-  */
-
-  swapState(servo, state);
-  delay(10);
-
-  Serial.println("Intervencao realizada.");
 }
